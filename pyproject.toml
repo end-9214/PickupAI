@@ -1,0 +1,5 @@
+[project]
+name = "phone-pickup-agent"
+version = "0.1.0"
+requires-python = ">=3.10,<4.0"
+dependencies = ["livekit-agents[openai,deepgram,inworld]>=1.7.0", "livekit>=1.0.0", "python-dotenv>=1.0.0"]

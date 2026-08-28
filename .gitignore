@@ -1,0 +1,57 @@
+# Environment & Secrets
+.env
+*.env
+*.env.local
+.env.*.local
+db.sqlite3
+db.sqlite3-journal
+
+# Audio & Cloned Voice Private Recordings
+voice/*.wav
+voice/*.m4a
+voice/*.mp3
+voice/*.npy
+!voice/.gitkeep
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+ENV/
+
+# Android & Gradle
+.gradle/
+**/build/
+*.iml
+.idea/
+local.properties
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
