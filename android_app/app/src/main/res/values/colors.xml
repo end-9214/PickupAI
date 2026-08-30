@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Modern Minimalist Editorial Palette (Anti-AI-Slop, High Contrast & Tactile) -->
-    <color name="bg_primary">#0D0F12</color>
-    <color name="bg_surface">#16191E</color>
-    <color name="bg_surface_elevated">#1E2229</color>
-    <color name="bg_input">#121418</color>
-    
-    <color name="border_subtle">#262B34</color>
-    <color name="border_active">#3B82F6</color>
-    
-    <color name="text_primary">#F3F4F6</color>
-    <color name="text_secondary">#9CA3AF</color>
-    <color name="text_tertiary">#6B7280</color>
-    
-    <color name="accent_blue">#3B82F6</color>
-    <color name="accent_blue_hover">#2563EB</color>
-    
-    <color name="status_green_bg">#132E1B</color>
-    <color name="status_green_text">#4ADE80</color>
-    <color name="status_green_border">#22C55E</color>
-    
-    <color name="status_amber_bg">#332408</color>
+    <!-- Deep Obsidian Canvas & Surfaces -->
+    <color name="bg_primary">#090D16</color>
+    <color name="bg_surface">#111726</color>
+    <color name="bg_surface_elevated">#172033</color>
+    <color name="bg_surface_card">#151C2C</color>
+    <color name="bg_input">#0D121F</color>
+
+    <!-- Borders & Dividers -->
+    <color name="border_subtle">#1F2A3F</color>
+    <color name="border_active">#6366F1</color>
+    <color name="border_highlight">#312E81</color>
+
+    <!-- Typography -->
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_tertiary">#64748B</color>
+    <color name="text_muted">#475569</color>
+
+    <!-- Brand Accents -->
+    <color name="accent_indigo">#6366F1</color>
+    <color name="accent_indigo_hover">#4F46E5</color>
+    <color name="accent_cyan">#06B6D4</color>
+    <color name="accent_violet">#8B5CF6</color>
+
+    <!-- Semantic Status Palettes -->
+    <color name="status_green_bg">#062D1F</color>
+    <color name="status_green_text">#34D399</color>
+    <color name="status_green_border">#059669</color>
+
+    <color name="status_amber_bg">#2F1E07</color>
     <color name="status_amber_text">#FBBF24</color>
-    <color name="status_amber_border">#F59E0B</color>
+    <color name="status_amber_border">#D97706</color>
+
+    <color name="status_red_bg">#310D15</color>
+    <color name="status_red_text">#FB7185</color>
+    <color name="status_red_border">#E11D48</color>
+
+    <color name="status_blue_bg">#0E2338</color>
+    <color name="status_blue_text">#38BDF8</color>
+    <color name="status_blue_border">#0284C7</color>
 </resources>
