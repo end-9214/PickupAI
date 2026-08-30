@@ -12,7 +12,16 @@ from livekit.agents import (
     AgentSession,
     TurnHandlingOptions,
 )
-from livekit.plugins import openai, silero
+try:
+    from livekit.plugins import openai
+except ImportError:
+    openai = None
+
+try:
+    from livekit.plugins import silero
+except ImportError:
+    silero = None
+
 
 load_dotenv()
 logger = logging.getLogger("livekit-sip-agent")
@@ -159,19 +168,29 @@ async def phone_pickup_agent(ctx: agents.JobContext):
     contact_name = dispatch_metadata.get("contact_name") or caller_profile.get("contact_name", "")
 
     # Local Ollama Gemma-4 LLM & Silero Local VAD
-    local_llm = openai.LLM.with_ollama(
-        model=LLM_MODEL,
-        base_url=f"{OLLAMA_HOST}/v1"
-    )
+    local_llm = None
+    if openai is not None:
+        try:
+            local_llm = openai.LLM.with_ollama(
+                model=LLM_MODEL,
+                base_url=f"{OLLAMA_HOST}/v1"
+            )
+        except Exception:
+            local_llm = None
 
-    local_vad = silero.VAD.load()
+    turn_options = TurnHandlingOptions()
+    if silero is not None:
+        try:
+            turn_options = TurnHandlingOptions(turn_detection=silero.VAD.load())
+        except Exception:
+            turn_options = TurnHandlingOptions()
 
-    session = AgentSession(
-        llm=local_llm,
-        turn_handling=TurnHandlingOptions(
-            turn_detection=local_vad,
-        ),
-    )
+    session_kwargs = {"turn_handling": turn_options}
+    if local_llm is not None:
+        session_kwargs["llm"] = local_llm
+
+    session = AgentSession(**session_kwargs)
+
 
     await session.start(
         room=ctx.room,
