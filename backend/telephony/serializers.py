@@ -22,9 +22,16 @@ class UserLoginSerializer(serializers.Serializer):
         if not username_input or not password_input:
             raise ValidationError("Both username and password are required.")
 
-        authenticated_user = authenticate(username=username_input, password=password_input)
+        lookup_username = username_input
+        if "@" in username_input:
+            matched_user = User.objects.filter(email__iexact=username_input).first()
+            if matched_user:
+                lookup_username = matched_user.get_username()
+
+        authenticated_user = authenticate(username=lookup_username, password=password_input)
         if not authenticated_user:
             raise AuthenticationFailed("Invalid username or password.")
+
 
         if not authenticated_user.is_active:
             raise AuthenticationFailed("User account is inactive or disabled.")
