@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="12dp">
+
+    <!-- Sender Tag -->
+    <TextView
+        android:id="@+id/txtChatSender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="🤖 Gemma 4 AI"
+        android:textColor="@color/accent_cyan"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Message Bubble -->
+    <LinearLayout
+        android:id="@+id/layoutChatBubble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/txtChatMessageContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hello Karamveer! How can I assist you with your calls today?"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:lineSpacingExtra="2dp" />
+
+        <TextView
+            android:id="@+id/txtChatActionReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_sip"
+            android:text="⚡ Action Executed"
+            android:textColor="@color/accent_indigo"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:padding="6dp"
+            android:visibility="gone"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</LinearLayout>

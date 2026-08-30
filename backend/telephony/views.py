@@ -15,7 +15,18 @@ from .serializers import (
     SipTrunkStatusSerializer,
     DashboardSummarySerializer,
     OutboundCallSerializer,
+    AssistantChatSerializer,
 )
+
+
+class AssistantChatView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = AssistantChatSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        response_payload = serializer.save()
+        return Response(response_payload, status=status.HTTP_200_OK)
 
 
 class OutboundCallView(APIView):
@@ -26,6 +37,7 @@ class OutboundCallView(APIView):
         serializer.is_valid(raise_exception=True)
         response_data = serializer.save()
         return Response(response_data, status=status.HTTP_201_CREATED)
+
 
 
 

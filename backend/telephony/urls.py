@@ -14,6 +14,7 @@ from .views import (
     SipTrunkStatusView,
     DashboardSummaryView,
     OutboundCallView,
+    AssistantChatView,
     PingView,
 )
 
@@ -27,10 +28,14 @@ urlpatterns = [
     path("auth/refresh/", TokenRefreshView.as_view(), name="auth-refresh"),
     path("auth/me/", UserProfileView.as_view(), name="auth-profile"),
 
+    # Assistant & Agent endpoints
+    path("assistant/chat/", AssistantChatView.as_view(), name="assistant-chat"),
+
     # Health & System Status
     path("ping/", PingView.as_view(), name="ping"),
     path("telephony/sip-trunk/", SipTrunkStatusView.as_view(), name="sip-trunk-status"),
     path("telephony/dashboard/", DashboardSummaryView.as_view(), name="dashboard-summary"),
+
 
     # Call Sessions & Insights
     path("calls/", CallSessionListView.as_view(), name="call-list"),

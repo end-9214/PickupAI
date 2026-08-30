@@ -45,6 +45,14 @@
                 android:letterSpacing="0.08" />
         </LinearLayout>
 
+        <!-- App Logo -->
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:src="@drawable/app_logo"
+            android:contentDescription="PickupAI Logo"
+            android:layout_marginBottom="16dp" />
+
         <!-- Brand Title -->
         <TextView
             android:layout_width="wrap_content"
@@ -56,6 +64,7 @@
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="-0.03"
             android:layout_marginBottom="6dp" />
+
 
         <TextView
             android:layout_width="wrap_content"

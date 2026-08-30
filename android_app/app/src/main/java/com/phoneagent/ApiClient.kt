@@ -213,6 +213,14 @@ class ApiClient(private val context: Context) {
     }
 
 
+    suspend fun sendAssistantMessage(message: String, history: JSONArray = JSONArray()): Result<JSONObject> = withContext(Dispatchers.IO) {
+        val payload = JSONObject().apply {
+            put("message", message)
+            put("history", history)
+        }
+        authenticatedPostRequest("$baseUrl/assistant/chat/", payload)
+    }
+
     private fun authenticatedGetRequest(url: String): Result<JSONObject> {
         return try {
             val token = authManager.getAccessToken() ?: ""
@@ -233,4 +241,27 @@ class ApiClient(private val context: Context) {
             Result.failure(e)
         }
     }
+
+    private fun authenticatedPostRequest(url: String, payload: JSONObject): Result<JSONObject> {
+        return try {
+            val token = authManager.getAccessToken() ?: ""
+            val request = Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer $token")
+                .addHeader("Content-Type", "application/json")
+                .post(payload.toString().toRequestBody(jsonMediaType))
+                .build()
+
+            val response = httpClient.newCall(request).execute()
+            val bodyString = response.body?.string() ?: "{}"
+            if (response.isSuccessful || response.code == 201) {
+                Result.success(JSONObject(bodyString))
+            } else {
+                Result.failure(Exception("HTTP ${response.code}: $bodyString"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
+

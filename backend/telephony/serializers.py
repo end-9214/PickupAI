@@ -1,5 +1,8 @@
 import os
 import time
+import json
+import urllib.request
+
 from django.contrib.auth import authenticate, get_user_model
 from django.utils import timezone
 from rest_framework import serializers
@@ -477,4 +480,140 @@ class OutboundCallSerializer(serializers.Serializer):
             "sip_trunk_id": sip_trunk_id,
             "dispatch_active": dispatch_success,
         }
+
+
+class AssistantChatSerializer(serializers.Serializer):
+    message = serializers.CharField(max_length=4000)
+    history = serializers.ListField(child=serializers.DictField(), required=False, default=list)
+
+    def validate_message(self, val: str) -> str:
+        cleaned = val.strip()
+        if not cleaned:
+            raise ValidationError("Message cannot be empty.")
+        return cleaned
+
+    def create(self, validated_data):
+        user_message = validated_data["message"]
+        chat_history = validated_data.get("history", [])
+
+        # 1. RAG Context: Retrieve Recent Call Insights & Transcripts
+        recent_insights = CallInsight.objects.select_related("call_session", "call_session__contact_personality").order_by("-analyzed_at")[:8]
+        rag_context_lines = []
+        for ins in recent_insights:
+            caller = ins.call_session.caller_number if ins.call_session else "Unknown"
+            contact_label = ins.call_session.contact_personality.contact_name if ins.call_session and ins.call_session.contact_personality else caller
+            rag_context_lines.append(
+                f"- Call with {contact_label} ({caller}): Summary: \"{ins.call_summary}\", Urgency: {ins.urgency_level}, Action Items: {ins.action_items or 'None'}"
+            )
+        rag_text = "\n".join(rag_context_lines) if rag_context_lines else "No recent call history recorded yet."
+
+        # 2. Known Contacts Context
+        contacts_list = ContactPersonality.objects.all()[:15]
+        contacts_summary = ", ".join([f"{c.contact_name} ({c.phone_number})" for c in contacts_list]) or "No custom contact rules yet."
+
+        sip_trunk = os.getenv("LIVEKIT_SIP_TRUNK_ID", "ST_LDBvSLZLdKZg")
+        sip_phone = os.getenv("LIVEKIT_SIP_OUTBOUND_NUMBER", "+1 (640) 230-3978")
+
+        system_instruction = (
+            "You are the intelligent Executive Telephony AI Assistant for Karamveer Singh in PickupAI. "
+            "You speak politely and smartly in Hindi / Hinglish / English. "
+            "You have full command over Karamveer's SIP Phone Agent system, telephony, contacts, and call records.\n\n"
+            f"Active SIP Line: {sip_phone} (Trunk: {sip_trunk})\n"
+            f"Known Contacts: {contacts_summary}\n\n"
+            f"RECENT CALL INSIGHTS & RAG MEMORY:\n{rag_text}\n\n"
+            "YOU HAVE ACTIVE TOOLS & CAN EXECUTE ACTIONS:\n"
+            "1. When the user asks you to call or dial anyone (e.g. 'Call +91... to ask ...' or 'Call mom'), output an action block:\n"
+            "```action\n{\"action\": \"call\", \"phone_number\": \"+...\", \"contact_name\": \"...\", \"prompt\": \"...\"}\n```\n"
+            "2. When the user asks to save, create, or update a rule/personality for a contact, output:\n"
+            "```action\n{\"action\": \"save_rule\", \"phone_number\": \"+...\", \"contact_name\": \"...\", \"custom_prompt\": \"...\", \"is_vip\": true/false, \"preferred_language\": \"Hindi\"}\n```\n"
+            "3. Answer questions about recent calls, summaries, urgent items, or system status clearly based on the RAG context.\n"
+            "Always be helpful, crisp, and direct."
+        )
+
+        ollama_url = f"{os.getenv('OLLAMA_HOST', 'http://127.0.0.1:11434').rstrip('/')}/api/chat"
+        llm_model = os.getenv("LLM_MODEL", "gemma4:e4b")
+
+        messages_payload = [{"role": "system", "content": system_instruction}]
+        for h in chat_history[-6:]:
+            if isinstance(h, dict) and "role" in h and "content" in h:
+                messages_payload.append({"role": h["role"], "content": str(h["content"])})
+        messages_payload.append({"role": "user", "content": user_message})
+
+        raw_response_text = ""
+        try:
+            req = urllib.request.Request(
+                ollama_url,
+                data=json.dumps({"model": llm_model, "messages": messages_payload, "stream": False}).encode("utf-8"),
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                resp_json = json.loads(resp.read().decode("utf-8"))
+                raw_response_text = resp_json.get("message", {}).get("content", "")
+        except Exception as err:
+            raw_response_text = f"Main response generated with fallback: {err}. How can I assist you with your SIP calls or rules?"
+
+        # 3. Check for and execute any requested Tool Action
+        executed_action = None
+        cleaned_reply = raw_response_text
+
+        if "```action" in raw_response_text:
+            try:
+                action_part = raw_response_text.split("```action")[1].split("```")[0].strip()
+                action_data = json.loads(action_part)
+                cleaned_reply = raw_response_text.split("```action")[0].strip() or "Done! I have executed the requested action."
+
+                if action_data.get("action") == "call":
+                    target_phone = action_data.get("phone_number", "")
+                    prompt = action_data.get("prompt", "")
+                    contact_name = action_data.get("contact_name", "")
+                    if target_phone:
+                        dial_serializer = OutboundCallSerializer(data={
+                            "phone_number": target_phone,
+                            "custom_prompt": prompt,
+                            "contact_name": contact_name,
+                        })
+                        if dial_serializer.is_valid():
+                            call_receipt = dial_serializer.save()
+                            executed_action = {
+                                "type": "outbound_call",
+                                "status": "initiated",
+                                "target": target_phone,
+                                "contact_name": contact_name or "Recipient",
+                                "session_id": str(call_receipt.get("session_id")),
+                            }
+                            cleaned_reply += f"\n\n📞 **Outbound AI Call Dispatched**: Calling `{target_phone}` via Twilio Line `{sip_phone}`!"
+
+                elif action_data.get("action") == "save_rule":
+                    phone = action_data.get("phone_number", "")
+                    name = action_data.get("contact_name", "Contact")
+                    custom_prompt = action_data.get("custom_prompt", "")
+                    is_vip = bool(action_data.get("is_vip", False))
+                    lang = action_data.get("preferred_language", "Hindi")
+                    if phone:
+                        rule, _ = ContactPersonality.objects.update_or_create(
+                            phone_number=phone,
+                            defaults={
+                                "contact_name": name,
+                                "custom_system_prompt": custom_prompt,
+                                "is_vip": is_vip,
+                                "preferred_language": lang,
+                            }
+                        )
+                        executed_action = {
+                            "type": "save_rule",
+                            "status": "saved",
+                            "contact_name": rule.contact_name,
+                            "phone_number": rule.phone_number,
+                            "is_vip": rule.is_vip,
+                        }
+                        cleaned_reply += f"\n\n⚙️ **Rule Saved**: Successfully updated personality rule for `{rule.contact_name}` ({rule.phone_number})!"
+            except Exception:
+                pass
+
+        return {
+            "reply": cleaned_reply,
+            "executed_action": executed_action,
+            "model": llm_model,
+        }
+
 

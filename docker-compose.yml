@@ -11,8 +11,8 @@ services:
     volumes:
       - ./backend:/app/backend
       - ./db.sqlite3:/app/db.sqlite3
-    ports:
-      - "8000:8000"
+    network_mode: host
+
 
   livekit-agent:
     build: .

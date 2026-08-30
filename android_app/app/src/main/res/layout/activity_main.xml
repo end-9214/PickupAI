@@ -6,18 +6,25 @@
     android:background="@color/bg_primary"
     android:orientation="vertical">
 
-    <!-- Top App Bar -->
+    <!-- Top App Bar with Logo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_surface"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:elevation="4dp">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/app_logo"
+            android:contentDescription="PickupAI Logo"
+            android:layout_marginEnd="10dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:text="PickupAI"
                     android:textColor="@color/text_primary"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:letterSpacing="-0.02" />
 
@@ -45,9 +52,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_badge_sip"
-                    android:text="ST_hTrSXznC7M8r"
+                    android:text="Twilio SIP"
                     android:textColor="@color/accent_indigo"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:textStyle="bold"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
@@ -60,7 +67,7 @@
                 android:id="@+id/txtLoggedInUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Signed in as admin"
+                android:text="Signed in as @karamveer"
                 android:textColor="@color/text_secondary"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -68,7 +75,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="34dp"
             android:text="Sign Out"
             android:textColor="@color/text_secondary"
             android:textSize="11sp"
@@ -78,15 +85,15 @@
             app:cornerRadius="6dp" />
     </LinearLayout>
 
-    <!-- Navigation Tab Bar -->
+    <!-- Navigation Tab Bar (6 Tabs) -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
         android:background="@color/bg_surface"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="12dp">
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -96,51 +103,78 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tabOverview"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
                 android:text="📊 Overview"
                 android:textColor="#FFFFFF"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:backgroundTint="@color/accent_indigo"
-                app:cornerRadius="18dp" />
+                app:cornerRadius="17dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabOutbound"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
+                android:text="📞 Outbound Dial"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                app:backgroundTint="@color/bg_surface_elevated"
+                app:strokeColor="@color/border_subtle"
+                app:strokeWidth="1dp"
+                app:cornerRadius="17dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tabAgent"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
+                android:text="🤖 Gemma AI"
+                android:textColor="@color/accent_cyan"
+                android:textStyle="bold"
+                android:textSize="11sp"
+                app:backgroundTint="@color/bg_surface_elevated"
+                app:strokeColor="@color/accent_cyan"
+                app:strokeWidth="1dp"
+                app:cornerRadius="17dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tabBehaviors"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
                 android:text="⚙️ Agent Rules"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:backgroundTint="@color/bg_surface_elevated"
                 app:strokeColor="@color/border_subtle"
                 app:strokeWidth="1dp"
-                app:cornerRadius="18dp" />
+                app:cornerRadius="17dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/tabAnalysis"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:text="📞 Call Analysis"
+                android:layout_height="34dp"
+                android:layout_marginEnd="6dp"
+                android:text="📈 Call Analysis"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:backgroundTint="@color/bg_surface_elevated"
                 app:strokeColor="@color/border_subtle"
                 app:strokeWidth="1dp"
-                app:cornerRadius="18dp" />
+                app:cornerRadius="17dp" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/tabSettings"
+                android:id="@+id/tabHelp"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="☁️ SIP &amp; System"
+                android:layout_height="34dp"
+                android:text="❓ Help &amp; Guide"
                 android:textColor="@color/text_secondary"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 app:backgroundTint="@color/bg_surface_elevated"
                 app:strokeColor="@color/border_subtle"
                 app:strokeWidth="1dp"
-                app:cornerRadius="18dp" />
+                app:cornerRadius="17dp" />
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -150,92 +184,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <!-- ================= TAB 1: OVERVIEW ================= -->
+            <ScrollView
+                android:id="@+id/layoutOverviewTab"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-                <!-- TAB 1: OVERVIEW -->
                 <LinearLayout
-                    android:id="@+id/layoutOverviewTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="visible">
+                    android:padding="16dp">
 
-                    <!-- Outbound Call Quick Launcher Card -->
+                    <!-- Live SIP Trunk Status Card -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card"
                         android:orientation="vertical"
                         android:padding="16dp"
-                        android:layout_marginBottom="16dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="6dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="OUTBOUND AI DIALER"
-                                android:textColor="@color/text_tertiary"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.08" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_badge_sip"
-                                android:text="LIVEKIT SIP"
-                                android:textColor="@color/accent_indigo"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:paddingStart="6dp"
-                                android:paddingEnd="6dp"
-                                android:paddingTop="2dp"
-                                android:paddingBottom="2dp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Dispatch Karamveer's AI to call any phone number and ask or discuss specific questions."
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp"
-                            android:layout_marginBottom="12dp" />
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnOpenOutboundDialer"
-                            android:layout_width="match_parent"
-                            android:layout_height="46dp"
-                            android:text="📞 Make Outbound AI Call"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            app:backgroundTint="@color/accent_indigo"
-                            app:cornerRadius="8dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_card"
-                        android:orientation="vertical"
-                        android:padding="16dp"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="14dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -248,7 +221,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="LIVEKIT SIP TRUNK"
+                                android:text="LIVEKIT &amp; TWILIO SIP TRUNK"
                                 android:textColor="@color/text_tertiary"
                                 android:textSize="11sp"
                                 android:textStyle="bold"
@@ -272,7 +245,7 @@
                             android:id="@+id/txtSipTrunkDisplay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Trunk ID: ST_hTrSXznC7M8r"
+                            android:text="Trunk ID: ST_LDBvSLZLdKZg"
                             android:textColor="@color/text_primary"
                             android:textSize="15sp"
                             android:textStyle="bold"
@@ -297,22 +270,21 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
-
                     <!-- Metric Cards Row -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="14dp">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginEnd="6dp"
                             android:background="@drawable/bg_card"
                             android:orientation="vertical"
-                            android:padding="14dp"
-                            android:layout_marginEnd="6dp">
+                            android:padding="14dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -320,8 +292,7 @@
                                 android:text="TOTAL CALLS"
                                 android:textColor="@color/text_tertiary"
                                 android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.05" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/txtMetricTotalCalls"
@@ -330,18 +301,17 @@
                                 android:text="0"
                                 android:textColor="@color/text_primary"
                                 android:textSize="22sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp" />
+                                android:textStyle="bold" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_marginStart="6dp"
                             android:background="@drawable/bg_card"
                             android:orientation="vertical"
-                            android:padding="14dp"
-                            android:layout_marginStart="6dp">
+                            android:padding="14dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -349,31 +319,29 @@
                                 android:text="ACTIVE RULES"
                                 android:textColor="@color/text_tertiary"
                                 android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.05" />
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/txtMetricActiveRules"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
-                                android:textColor="@color/accent_indigo"
+                                android:textColor="@color/text_primary"
                                 android:textSize="22sp"
-                                android:textStyle="bold"
-                                android:layout_marginTop="4dp" />
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
-                    <!-- Recent Insights Header -->
+                    <!-- Recent Insights Header & Container -->
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RECENT CALL INSIGHTS &amp; ACTIONS"
+                        android:text="RECENT CALL INSIGHTS &amp; SUMMARIES"
                         android:textColor="@color/text_tertiary"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.08"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="8dp" />
 
                     <LinearLayout
                         android:id="@+id/containerOverviewInsights"
@@ -381,27 +349,382 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
                 </LinearLayout>
+            </ScrollView>
 
-                <!-- TAB 2: AGENT BEHAVIORS (PER-NUMBER RULES) -->
+            <!-- ================= TAB 2: OUTBOUND DIALER ================= -->
+            <ScrollView
+                android:id="@+id/layoutOutboundTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
                 <LinearLayout
-                    android:id="@+id/layoutBehaviorsTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="OUTBOUND AI DIALER"
+                        android:textColor="@color/text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Type a phone number and instruct Karamveer's AI to call and ask/discuss anything in Hindi."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_marginBottom="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TARGET PHONE NUMBER"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/editDirectPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/bg_input"
+                            android:hint="+91 91490 35089"
+                            android:textColorHint="@color/text_tertiary"
+                            android:textColor="@color/text_primary"
+                            android:inputType="phone"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="RECIPIENT NAME (OPTIONAL)"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/editDirectName"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/bg_input"
+                            android:hint="Delivery Person / Client Name"
+                            android:textColorHint="@color/text_tertiary"
+                            android:textColor="@color/text_primary"
+                            android:inputType="textPersonName"
+                            android:paddingStart="14dp"
+                            android:paddingEnd="14dp"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AI CALL OBJECTIVE &amp; CUSTOM PROMPT"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/editDirectPrompt"
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp"
+                            android:background="@drawable/bg_input"
+                            android:hint="Ask if my package delivery is on the way and what time it will arrive..."
+                            android:textColorHint="@color/text_tertiary"
+                            android:textColor="@color/text_primary"
+                            android:gravity="top"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:layout_marginBottom="12dp" />
+
+                        <!-- Preset Quick Chips -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="QUICK PRESETS:"
+                            android:textColor="@color/text_tertiary"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="16dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnDirectPresetDelivery"
+                                android:layout_width="0dp"
+                                android:layout_height="36dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                android:text="📦 Delivery"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="10sp"
+                                app:backgroundTint="@color/bg_surface_elevated"
+                                app:strokeColor="@color/border_subtle"
+                                app:strokeWidth="1dp"
+                                app:cornerRadius="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnDirectPresetMeeting"
+                                android:layout_width="0dp"
+                                android:layout_height="36dp"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="4dp"
+                                android:text="📅 Meeting"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="10sp"
+                                app:backgroundTint="@color/bg_surface_elevated"
+                                app:strokeColor="@color/border_subtle"
+                                app:strokeWidth="1dp"
+                                app:cornerRadius="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnDirectPresetFollowup"
+                                android:layout_width="0dp"
+                                android:layout_height="36dp"
+                                android:layout_weight="1"
+                                android:text="⚡ Status"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="10sp"
+                                app:backgroundTint="@color/bg_surface_elevated"
+                                app:strokeColor="@color/border_subtle"
+                                app:strokeWidth="1dp"
+                                app:cornerRadius="6dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnDirectStartCall"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:text="📞 Dial via Twilio SIP Trunk"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/accent_indigo"
+                            app:cornerRadius="8dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- ================= TAB 3: GEMMA AI ASSISTANT (CENTER STAGE) ================= -->
+            <LinearLayout
+                android:id="@+id/layoutAgentTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <!-- Agent Header Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_surface"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="12dp"
+                    android:elevation="2dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/app_logo"
+                        android:layout_marginEnd="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Gemma 4 Executive AI"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Local LLM • RAG Call Memory • Tool Calling Active"
+                            android:textColor="@color/accent_cyan"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:text="Clear"
+                        android:textColor="@color/text_tertiary"
+                        android:textSize="10sp"
+                        app:backgroundTint="@color/bg_surface_elevated"
+                        app:cornerRadius="4dp" />
+                </LinearLayout>
+
+                <!-- Quick Suggested Prompt Chips -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:background="@color/bg_surface_elevated"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/chipSuggestSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="4dp"
+                            android:text="🔍 Summarize my last call"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/bg_surface"
+                            app:cornerRadius="15dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/chipSuggestDial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="4dp"
+                            android:text="📞 Call +919149035089"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/bg_surface"
+                            app:cornerRadius="15dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/chipSuggestRule"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginEnd="4dp"
+                            android:text="⚙️ Add rule for Mom"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/bg_surface"
+                            app:cornerRadius="15dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/chipSuggestUrgent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="⚡ Any urgent calls?"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            app:backgroundTint="@color/bg_surface"
+                            app:cornerRadius="15dp" />
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Chat Scroll View -->
+                <ScrollView
+                    android:id="@+id/scrollChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:padding="12dp"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:id="@+id/containerChatMessages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </ScrollView>
+
+                <!-- Bottom Chat Input Bar -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bg_surface"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="8dp">
+
+                    <EditText
+                        android:id="@+id/editAgentMessage"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_input"
+                        android:hint="Ask Gemma or instruct: 'Call delivery guy...'"
+                        android:textColorHint="@color/text_tertiary"
+                        android:textColor="@color/text_primary"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="13sp"
+                        android:layout_marginEnd="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSendAgentMessage"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:text="➤"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        app:backgroundTint="@color/accent_indigo"
+                        app:cornerRadius="22dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ================= TAB 4: AGENT RULES ================= -->
+            <ScrollView
+                android:id="@+id/layoutBehaviorsTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="12dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="PHONE NUMBER RULES"
+                            android:text="PER-NUMBER RULES"
                             android:textColor="@color/text_tertiary"
                             android:textSize="11sp"
                             android:textStyle="bold"
@@ -410,13 +733,12 @@
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAddRule"
                             android:layout_width="wrap_content"
-                            android:layout_height="38dp"
+                            android:layout_height="32dp"
                             android:text="+ Add Rule"
                             android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
+                            android:textSize="11sp"
                             app:backgroundTint="@color/accent_indigo"
-                            app:cornerRadius="8dp" />
+                            app:cornerRadius="6dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -425,24 +747,31 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
                 </LinearLayout>
+            </ScrollView>
 
-                <!-- TAB 3: CALL ANALYSIS -->
+            <!-- ================= TAB 5: CALL ANALYSIS ================= -->
+            <ScrollView
+                android:id="@+id/layoutAnalysisTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
                 <LinearLayout
-                    android:id="@+id/layoutAnalysisTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="FULL CALL ANALYSIS &amp; TRANSCRIPTS"
+                        android:text="DETAILED CALL INTELLIGENCE"
                         android:textColor="@color/text_tertiary"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.08"
-                        android:layout_marginBottom="14dp" />
+                        android:layout_marginBottom="12dp" />
 
                     <LinearLayout
                         android:id="@+id/containerDetailedAnalysis"
@@ -450,123 +779,149 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
                 </LinearLayout>
+            </ScrollView>
 
-                <!-- TAB 4: SYSTEM & TELEPHONY -->
+            <!-- ================= TAB 6: HELP & GUIDE ================= -->
+            <ScrollView
+                android:id="@+id/layoutHelpTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:fillViewport="true">
+
                 <LinearLayout
-                    android:id="@+id/layoutSettingsTab"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:padding="16dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="USER GUIDE &amp; HELP MANUAL"
+                        android:textColor="@color/text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Everything you need to know about using PickupAI, configuring SIP trunks, and managing your AI agent."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Section 1: Inbound Calling -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card"
                         android:orientation="vertical"
-                        android:padding="18dp"
-                        android:layout_marginBottom="16dp">
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="SIP TRUNK SPECIFICATION"
-                            android:textColor="@color/text_tertiary"
-                            android:textSize="11sp"
+                            android:text="📞 1. INBOUND CALLING"
+                            android:textColor="@color/accent_cyan"
+                            android:textSize="13sp"
                             android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:layout_marginBottom="12dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Trunk ID: ST_hTrSXznC7M8r"
-                            android:textColor="@color/text_primary"
-                            android:textSize="14sp"
-                            android:fontFamily="sans-serif-medium"
                             android:layout_marginBottom="6dp" />
 
                         <TextView
-                            android:id="@+id/txtSettingsBackendUrl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Compiled API: http://..."
+                            android:text="• When anyone calls your Twilio Phone Number (+1 640 230-3978), Twilio immediately forwards the call via SIP to LiveKit Cloud.\n• Your AI agent answers automatically in first-person as Karamveer Singh in Hindi.\n• The call transcript, audio, and AI intelligence analysis are saved to your dashboard in real-time."
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp"
-                            android:layout_marginBottom="6dp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="LiveKit Cloud: Connected (Inbound Rule: Individual Room)"
-                            android:textColor="@color/accent_indigo"
-                            android:textSize="12sp" />
+                            android:lineSpacingExtra="3dp" />
                     </LinearLayout>
 
+                    <!-- Section 2: Outbound Calling -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card"
                         android:orientation="vertical"
-                        android:padding="18dp"
-                        android:layout_marginBottom="16dp">
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="CELLULAR DIALER ROLE (OPTIONAL)"
-                            android:textColor="@color/text_tertiary"
-                            android:textSize="11sp"
+                            android:text="🚀 2. OUTBOUND AI DIALER"
+                            android:textColor="@color/accent_indigo"
+                            android:textSize="13sp"
                             android:textStyle="bold"
-                            android:letterSpacing="0.08"
-                            android:layout_marginBottom="8dp" />
+                            android:layout_marginBottom="6dp" />
 
                         <TextView
-                            android:id="@+id/txtDialerRoleStatus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Status: Active Dialer"
+                            android:text="• Switch to the 'Outbound Dial' tab.\n• Enter the recipient's phone number and what you want the AI to ask or confirm (e.g. 'Ask if my delivery parcel is arriving today').\n• Click 'Dial via Twilio SIP'—Karamveer's AI calls their phone and holds the conversation."
                             android:textColor="@color/text_secondary"
-                            android:textSize="13sp"
-                            android:layout_marginBottom="12dp" />
+                            android:textSize="12sp"
+                            android:lineSpacingExtra="3dp" />
+                    </LinearLayout>
 
-                        <LinearLayout
+                    <!-- Section 3: Gemma AI Assistant -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🤖 3. GEMMA 4 EXECUTIVE AI CHAT"
+                            android:textColor="@color/status_green_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:text="• Open the 'Gemma AI' tab to chat with your local AI.\n• Ask questions: 'What did the delivery guy say in the last call?'\n• Give commands: 'Call +91... and ask about the invoice' or 'Add a VIP rule for Dad'.\n• Gemma executes tools automatically and reports back."
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:lineSpacingExtra="3dp" />
+                    </LinearLayout>
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnSetDialerRole"
-                                android:layout_width="0dp"
-                                android:layout_height="44dp"
-                                android:layout_weight="1"
-                                android:layout_marginEnd="6dp"
-                                android:text="Grant Role"
-                                android:textColor="@color/text_primary"
-                                android:textSize="12sp"
-                                app:backgroundTint="@color/bg_surface_elevated"
-                                app:strokeColor="@color/border_subtle"
-                                app:strokeWidth="1dp"
-                                app:cornerRadius="8dp" />
+                    <!-- Section 4: Per-Number Rules -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:layout_marginBottom="12dp">
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnRevertDialerRole"
-                                android:layout_width="0dp"
-                                android:layout_height="44dp"
-                                android:layout_weight="1"
-                                android:layout_marginStart="6dp"
-                                android:text="Revert"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp"
-                                app:backgroundTint="@color/bg_surface_elevated"
-                                app:strokeColor="@color/border_subtle"
-                                app:strokeWidth="1dp"
-                                app:cornerRadius="8dp" />
-                        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⚙️ 4. PER-NUMBER AGENT RULES"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="• In 'Agent Rules', click '+ Add Rule'.\n• Specify contact phone number, contact name, VIP status, and custom system prompt.\n• Whenever that specific number calls, Karamveer's AI uses your customized instructions!"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp"
+                            android:lineSpacingExtra="3dp" />
                     </LinearLayout>
                 </LinearLayout>
+            </ScrollView>
 
-            </LinearLayout>
-        </ScrollView>
+        </FrameLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
